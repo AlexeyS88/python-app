@@ -9,17 +9,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Prepare .env file
         run: cp .env.example .env
 
       - name: Build app
-        run: docker compose up -d --build
+        run: docker compose -p fastapi-dev up -d --build
 
       - name: Run tests
         run: docker compose exec -T backend pytest -v
 
       - name: Stop containers
         if: always()
-        run: docker compose down -v
+        run: docker compose -p fastapi-dev down -v

@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.routers.task import router as task_router
 
 from contextlib import asynccontextmanager
-
+from app.core.config import settings
 from app.models.base import Base
 from app.db.session import engine
 from app.rabbitmq import connect_rabbitmq, declare_notification_queue, declare_orders_exchange
@@ -25,8 +25,9 @@ app.include_router(task_router)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8080"],
-    allow_methods=["*"]
+    allow_origins=settings.cors_allowed_origin,
+    allow_methods=["*"],
+    allow_headers=["*"]
 )
 
 
