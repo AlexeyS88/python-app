@@ -20,6 +20,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push Docker image
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/fastapi-test .
+          docker compose -p ${{ secrets.DOCKERHUB_USERNAME }}/fastapi-test up -d --build
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/fastapi-test
