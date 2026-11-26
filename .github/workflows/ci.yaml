@@ -15,11 +15,11 @@ jobs:
         run: cp .env.example .env
 
       - name: Build app
-        run: docker compose -p fastapi-dev up -d --build
+        run: docker compose -p fastapi-app up -d --build
 
       - name: Run tests
         run: docker compose exec -T backend pytest -v
 
       - name: Stop containers
         if: always()
-        run: docker compose -p fastapi-dev down -v
+        run: docker compose -p fastapi-app down -v
