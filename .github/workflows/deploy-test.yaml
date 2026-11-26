@@ -23,5 +23,5 @@ jobs:
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         run: |
-          docker compose -p ${{ secrets.DOCKERHUB_USERNAME }}/fastapi-test up -d --build
+          docker compose -p fastapi-test up -d --build
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/fastapi-test
