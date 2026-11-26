@@ -13,8 +13,12 @@ jobs:
       - name: Prepare .env file
         run: cp .env.example .env
 
-      - name: Remove previous deploy
-        run: docker compose -p fastapi-test down -v
+      - name: Login to Docker Hub
+        uses: docker/login-action@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Deploy Project
-        run: APP_PUBLIC_PORT=18001 docker compose -p fastapi-test up -d --build
+      - name: Build and push Docker image
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/fastapi-test .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/fastapi-test
