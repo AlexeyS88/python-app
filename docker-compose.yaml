@@ -49,7 +49,8 @@ services:
     volumes:
       - redis_data:/data
   backend:
-    container_name: backend
+    image: ${APP_IMAGE:-${DOCKERHUB_USERNAME}/fast-api-dev:latest}
+    container_name: ${CONTAINER_NAME:-fastapi-dev}
     restart: unless-stopped
     build:
       context: .
