@@ -14,6 +14,7 @@ async def handle_order_created(message: AbstractIncomingMessage):
     await message.ack()
 
 async def main():
+    print("Программа запущена")
     rmq_user = os.environ["RABBITMQ_DEFAULT_USER"]
     rmq_pass = os.environ["RABBITMQ_DEFAULT_PASS"]
     rmq_host = os.getenv("RABBITMQ_DEFAULT_HOST", "localhost")
@@ -22,6 +23,7 @@ async def main():
 
     connection = await aio_pika.connect_robust(url=url)
     channel = await connection.channel()
+    print("Соединение установлено")
     orders_exchange = await declare_orders_exchange(channel)
     queue = await declare_notification_queue(channel, orders_exchange)
     await queue.consume(handle_order_created)

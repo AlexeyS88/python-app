@@ -21,8 +21,10 @@ jobs:
       - name: Build and push Docker image
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          APP_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/fastapi-test:0.1
+          APP_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/fastapi-test:0.2
           CONTAINER_NAME: fastapi-test
         run: |
           docker build -t "$APP_IMAGE" .
+          docker tag "$APP_IMAGE" "${DOCKERHUB_USERNAME}/fastapi-prod:latest"
           docker push "$APP_IMAGE"
+          docker push "${DOCKERHUB_USERNAME}/fastapi-prod:latest"

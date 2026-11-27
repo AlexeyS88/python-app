@@ -23,7 +23,9 @@ jobs:
           CONTAINER_NAME: fastapi-prod
         run: |
           docker build -t "$APP_IMAGE" .
+          docker tag "$APP_IMAGE" "${DOCKERHUB_USERNAME}/fastapi-prod:latest"
           docker push "$APP_IMAGE"
+          docker push "${DOCKERHUB_USERNAME}/fastapi-prod:latest"
 
       - name: Create .env and copy files to server
         env:
