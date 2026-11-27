@@ -13,6 +13,8 @@ jobs:
         run: cp .env.example .env
 
       - name: Build app
+        env:
+          APP_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/fastapi-dev
         run: docker compose -p fastapi-app up -d --build
 
       - name: Run tests
